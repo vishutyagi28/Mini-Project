@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password with OTP</title>
+    <link rel="stylesheet" href="forgot.css">
+</head>
+<body>
+
+    <!-- Main Auth Container -->
+    <div class="auth-container">
+        <form id="forgotPasswordForm">
+            <div class="input-group">
+                <label for="phoneNumber">Mobile Number</label>
+                <input type="text" id="phoneNumber" placeholder="Enter your mobile number" required>
+            </div>
+            <button type="submit" class="auth-btn">Send OTP</button>
+        </form>
+    </div>
+
+    <!-- OTP Verification Modal -->
+    <div id="otpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOtpModal()">&times;</span>
+            <h3>Verify OTP</h3>
+            <p>An OTP has been sent to your mobile number.</p>
+            <input type="text" id="otp" placeholder="Enter OTP" required>
+            <button onclick="verifyOtp()">Verify OTP</button>
+        </div>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div id="resetPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeResetPasswordModal()">&times;</span>
+            <h3>Reset Your Password</h3>
+            <input type="password" id="newPassword" placeholder="Enter new password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+            <button onclick="resetPassword()">Reset Password</button>
+        </div>
+    </div>
+
+    <script>
+        // Show OTP modal after mobile number submission
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const phoneNumber = document.getElementById('phoneNumber').value;
+
+            if (!phoneNumber) {
+                alert('Please enter your mobile number.');
+                return;
+            }
+
+            // Simulate sending OTP (In a real application, the OTP will be sent via SMS)
+            alert('OTP sent to ' + phoneNumber);
+
+            // Show OTP modal
+            document.getElementById('otpModal').style.display = 'flex';
+        });
+
+        // Close OTP modal
+        function closeOtpModal() {
+            document.getElementById('otpModal').style.display = 'none';
+        }
+
+        // Verify OTP
+        function verifyOtp() {
+            const otp = document.getElementById('otp').value;
+
+            if (!otp) {
+                alert('Please enter the OTP.');
+                return;
+            }
+
+            // Simulate OTP verification (In a real application, OTP will be verified on the server)
+            if (otp === '123456') {  // This is a mock OTP, replace with server-side validation
+                alert('OTP verified successfully.');
+
+                // Show reset password modal
+                document.getElementById('resetPasswordModal').style.display = 'flex';
+                closeOtpModal();
+            } else {
+                alert('Invalid OTP. Please try again.');
+            }
+        }
+
+        // Reset password
+        function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword === '' || confirmPassword === '') {
+                alert('Please fill in both fields.');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // Simulate password reset (In a real application, password will be updated in the database)
+            alert('Your password has been successfully reset.');
+
+            closeResetPasswordModal();
+        }
+
+        // Close Reset Password Modal
+        function closeResetPasswordModal() {
+            document.getElementById('resetPasswordModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
